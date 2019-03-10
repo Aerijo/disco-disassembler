@@ -1,50 +1,50 @@
 import { INSTRUCTION } from "./instructions";
 
-function CDP (word: number): INSTRUCTION {
+function idCDP (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.CDP_T2
     : INSTRUCTION.CDP_T1;
 }
 
-function MCR (word: number): INSTRUCTION {
+function idMCR (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.MCR_T2
     : INSTRUCTION.MCR_T1;
 }
 
-function MRC (word: number): INSTRUCTION {
+function idMRC (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.MRC_T2
     : INSTRUCTION.MRC_T1;
 }
 
-function MRRC (word: number): INSTRUCTION {
+function idMRRC (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.MRRC_T2
     : INSTRUCTION.MRRC_T1;
 }
 
-function MCRR (word: number): INSTRUCTION {
+function idMCRR (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.MCRR_T2
     : INSTRUCTION.MCRR_T1;
 }
 
-function LDC (word: number): INSTRUCTION {
-  if (((word >>> 16) & 0b1111) === 0b1111) return LDC_LIT(word);
+function idLDC (word: number): INSTRUCTION {
+  if (((word >>> 16) & 0b1111) === 0b1111) return idLDC_LIT(word);
 
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.LDC_IMM_T2
     : INSTRUCTION.LDC_IMM_T1;
 }
 
-function LDC_LIT (word: number): INSTRUCTION {
+function idLDC_LIT (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.LDC_LIT_T2
     : INSTRUCTION.LDC_LIT_T1;
 }
 
-function STC (word: number): INSTRUCTION {
+function idSTC (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
     ? INSTRUCTION.STC_T2
     : INSTRUCTION.STC_T1;
@@ -82,8 +82,8 @@ function TEQ_REG_T1 (_word: number): INSTRUCTION {
   return INSTRUCTION.TEQ_REG_T1;
 }
 
-function PKHBT (_word: number): INSTRUCTION {
-  return INSTRUCTION.PKHBT; // TODO: Identify PKHBT vs PKHTB
+function PKHBT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PKHBT_T1; // TODO: Identify PKHBT vs PKHTB
 }
 
 function ADD_REG_T3 (_word: number): INSTRUCTION {
@@ -515,29 +515,297 @@ function USAD8 (_word: number): INSTRUCTION {
   return INSTRUCTION.USAD8;
 }
 
+function LSL_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LSL_REG_T2;
+}
+
+function LSR_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LSR_REG_T2;
+}
+
+function ASR_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.ASR_REG_T2;
+}
+
+function ROR_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.ROR_REG_T2;
+}
+
+function SXTH_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SXTH_T2;
+}
+
+function SXTAH_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SXTAH_T1;
+}
+
+function UXTH_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UXTH_T2;
+}
+
+function UXTAH_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UXTAH_T1;
+}
+
+function SXTB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SXTB16_T1;
+}
+
+function SXTAB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SXTAB16_T1;
+}
+
+function UXTB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UXTB16_T1;
+}
+
+function UXTAB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UXTAB16_T1;
+}
+
+function SXTB_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SXTB_T2;
+}
+
+function SXTAB_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SXTAB_T1;
+}
+
+function UXTB_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UXTB_T2;
+}
+
+function UXTAB_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UXTAB_T1;
+}
+
+function QADD_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QADD_T1;
+}
+
+function QDADD_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QDADD_T1;
+}
+
+function QSUB_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QSUB_T1;
+}
+
+function QDSUB_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QDSUB_T1;
+}
+
+function REV_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.REV_T2;
+}
+
+function REV16_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.REV16_T2;
+}
+
+function RBIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.RBIT_T1;
+}
+
+function REVSH_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.REVSH_T2;
+}
+
+function SEL_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SEL_T1;
+}
+
+function CLZ_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.CLZ_T1;
+}
+
+function SADD8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SADD8_T1;
+}
+
+function SADD16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SADD16_T1;
+}
+
+function SASX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SASX_T1;
+}
+
+function SSUB8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SSUB8_T1;
+}
+
+function SSUB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SSUB16_T1;
+}
+
+function SSAX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SSAX_T1;
+}
+
+function QADD8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QADD8_T1;
+}
+
+function QADD16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QADD16_T1;
+}
+
+function QASX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QASX_T1;
+}
+
+function QSUB8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QSUB8_T1;
+}
+
+function QSUB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QSUB16_T1;
+}
+
+function QSAX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.QSAX_T1;
+}
+
+function SHADD8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SHADD8_T1;
+}
+
+function SHADD16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SHADD16_T1;
+}
+
+function SHASX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SHASX_T1;
+}
+
+function SHSUB8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SHSUB8_T1;
+}
+
+function SHSUB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SHSUB16_T1;
+}
+
+function SHSAX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SHSAX_T1;
+}
+
+function UADD8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UADD8_T1;
+}
+
+function UADD16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UADD16_T1;
+}
+
+function UASX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UASX_T1;
+}
+
+function USUB8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.USUB8_T1;
+}
+
+function USUB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.USUB16_T1;
+}
+
+function USAX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.USAX_T1;
+}
+
+function UQADD8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UQADD8_T1;
+}
+
+function UQADD16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UQADD16_T1;
+}
+
+function UQASX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UQASX_T1;
+}
+
+function UQSUB8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UQSUB8_T1;
+}
+
+function UQSUB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UQSUB16_T1;
+}
+
+function UQSAX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UQSAX_T1;
+}
+
+function UHADD8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UHADD8_T1;
+}
+
+function UHADD16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UHADD16_T1;
+}
+
+function UHASX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UHASX_T1;
+}
+
+function UHSUB8_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UHSUB8_T1;
+}
+
+function UHSUB16_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UHSUB16_T1;
+}
+
+function UHSAX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UHSAX_T1;
+}
+
+function LDR_LIT_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDR_LIT_T2;
+}
+
+function LDR_IMM_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDR_IMM_T3;
+}
+
+function LDR_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDR_REG_T2;
+}
+
+function LDR_IMM_T4 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDR_IMM_T4;
+}
+
+function LDRT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRT_T1;
+}
+
 function idCoprocessorInstr (word: number): INSTRUCTION {
   const op1 = (word >>> 20) & 0b111111;
   const op = (word >>> 4) & 0b1;
 
   if (((op1 >>> 4) & 0b11) === 0b10) {
-    if (op === 0) return CDP(word);
+    if (op === 0) return idCDP(word);
     return ((op1 & 0b1) === 0b1)
-      ? MCR(word)
-      : MRC(word);
+      ? idMCR(word)
+      : idMRC(word);
   }
 
   if ((op1 | 0b000101) === 0b000101) {
     return ((op1 & 0b100) === 0b100)
       ? ((op1 & 0b1) === 0b1)
-        ? MRRC(word)
-        : MCRR(word)
+        ? idMRRC(word)
+        : idMCRR(word)
       : INSTRUCTION.UNDEFINED;
   }
 
   if ((op1 >>> 5) === 0b0) {
     return ((op1 & 0b1) === 0b1)
-      ? LDC(word)
-      : STC(word);
+      ? idLDC(word)
+      : idSTC(word);
   }
 
   return INSTRUCTION.UNDEFINED;
@@ -570,7 +838,7 @@ function idDataProcessingShifted (word: number): INSTRUCTION {
     case 0b0010: return RN_PC ? idMoveAndImmShift(word) : ORR_REG_T2(word);
     case 0b0011: return RN_PC ? MVN_REG_T2(word) : ORN_REG_T1(word);
     case 0b0100: return RD_PC ? (S ? TEQ_REG_T1(word) : INSTRUCTION.UNPREDICTABLE) : EOR_REG_T2(word);
-    case 0b0110: return PKHBT(word);
+    case 0b0110: return PKHBT_T1(word);
     case 0b1000: return RD_PC ? (S ? CMN_REG_T2(word) : INSTRUCTION.UNPREDICTABLE) : ADD_REG_T3(word);
     case 0b1010: return ADC_REG_T2(word);
     case 0b1011: return SBC_REG_T2(word);
@@ -775,34 +1043,218 @@ function idMultiplyDiff (word: number): INSTRUCTION {
   }
 }
 
-function idDataProcRegistry (_word: number): INSTRUCTION {
+function idMiscOperations (word: number): INSTRUCTION {
+  if (((word >>> 12) & 0b1111) !== 0b1111) return INSTRUCTION.UNDEFINED;
+  const op1 = (word >>> 20) & 0b11;
+  const op2 = (word >>> 4) & 0b11;
+
+  switch (op1) {
+    case 0b00: switch (op2) {
+      case 0b00: return QADD_T1(word);
+      case 0b01: return QDADD_T1(word);
+      case 0b10: return QSUB_T1(word);
+      case 0b11: return QDSUB_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b01: switch (op2) {
+      case 0b00: return REV_T2(word);
+      case 0b01: return REV16_T2(word);
+      case 0b10: return RBIT_T1(word);
+      case 0b11: return REVSH_T2(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b10: return (op2 === 0) ? SEL_T1(word) : INSTRUCTION.UNDEFINED;
+    case 0b11: return (op2 === 0) ? CLZ_T1(word) : INSTRUCTION.UNDEFINED;
+    default: return INSTRUCTION.UNDEFINED;
+  }
+}
+
+function idParallelAddSubSigned (word: number): INSTRUCTION {
+  if (((word >>> 12) & 0b1111) !== 0b1111) return INSTRUCTION.UNDEFINED;
+  const op1 = (word >>> 20) & 0b11;
+  const op2 = (word >>> 4) & 0b11;
+
+  switch (op2) {
+    case 0b00: switch (op1) {
+      case 0b000: return SADD8_T1(word);
+      case 0b001: return SADD16_T1(word);
+      case 0b010: return SASX_T1(word);
+      case 0b100: return SSUB8_T1(word);
+      case 0b101: return SSUB16_T1(word);
+      case 0b110: return SSAX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b01: switch (op1) {
+      case 0b000: return QADD8_T1(word);
+      case 0b001: return QADD16_T1(word);
+      case 0b010: return QASX_T1(word);
+      case 0b100: return QSUB8_T1(word);
+      case 0b101: return QSUB16_T1(word);
+      case 0b110: return QSAX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b10: switch (op1) {
+      case 0b000: return SHADD8_T1(word);
+      case 0b001: return SHADD16_T1(word);
+      case 0b010: return SHASX_T1(word);
+      case 0b100: return SHSUB8_T1(word);
+      case 0b101: return SHSUB16_T1(word);
+      case 0b110: return SHSAX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    default: return INSTRUCTION.UNDEFINED;
+  }
+}
+
+function idParallelAddSubUnsigned (word: number): INSTRUCTION {
+  if (((word >>> 12) & 0b1111) !== 0b1111) return INSTRUCTION.UNDEFINED;
+  const op1 = (word >>> 20) & 0b11;
+  const op2 = (word >>> 4) & 0b11;
+
+  switch (op2) {
+    case 0b00: switch (op1) {
+      case 0b000: return UADD8_T1(word);
+      case 0b001: return UADD16_T1(word);
+      case 0b010: return UASX_T1(word);
+      case 0b100: return USUB8_T1(word);
+      case 0b101: return USUB16_T1(word);
+      case 0b110: return USAX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b01: switch (op1) {
+      case 0b000: return UQADD8_T1(word);
+      case 0b001: return UQADD16_T1(word);
+      case 0b010: return UQASX_T1(word);
+      case 0b100: return UQSUB8_T1(word);
+      case 0b101: return UQSUB16_T1(word);
+      case 0b110: return UQSAX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b10: switch (op1) {
+      case 0b000: return UHADD8_T1(word);
+      case 0b001: return UHADD16_T1(word);
+      case 0b010: return UHASX_T1(word);
+      case 0b100: return UHSUB8_T1(word);
+      case 0b101: return UHSUB16_T1(word);
+      case 0b110: return UHSAX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    default: return INSTRUCTION.UNDEFINED;
+  }
+}
+
+function idDataProcRegister (word: number): INSTRUCTION {
+  // 1111 1010 aaaa nnnn 1111 ---- bbbb ----
+  if (((word >>> 12) & 0b1111) !== 0b1111) return INSTRUCTION.UNDEFINED;
+
+  const op1 = (word >>> 20) & 0b1111;
+  const RN_PC = ((word >>> 16) & 0b1111) === 0b1111;
+  const op2 = (word >>> 4) & 0b1111;
+  const op1StartsWith1 = (op1 & 0b1000) > 0;
+  const op2StartsWith1 = (op2 & 0b1000) > 0;
+
+  if (op2StartsWith1) {
+    switch (op1) {
+      case 0b0000: return RN_PC ? SXTH_T2(word) : SXTAH_T1(word);
+      case 0b0001: return RN_PC ? UXTH_T2(word) : UXTAH_T1(word);
+      case 0b0010: return RN_PC ? SXTB16_T1(word) : SXTAB16_T1(word);
+      case 0b0011: return RN_PC ? UXTB16_T1(word) : UXTAB16_T1(word);
+      case 0b0100: return RN_PC ? SXTB_T2(word) : SXTAB_T1(word);
+      case 0b0101: return RN_PC ? UXTB_T2(word) : UXTAB_T1(word);
+      default: return ((op2 & 0b0100) === 0 && (op1 & 0b1100) === 0b1000)
+        ? idMiscOperations(word)
+        : INSTRUCTION.UNDEFINED;
+    }
+  }
+
+  if (op1StartsWith1) {
+    return ((op2 & 0b0100) > 0)
+      ? idParallelAddSubUnsigned(word)
+      : idParallelAddSubSigned(word);
+  }
+
+  if (op2 !== 0) return INSTRUCTION.UNDEFINED;
+
+  switch (op1 >>> 1) {
+    case 0b000: return LSL_REG_T2(word);
+    case 0b001: return LSR_REG_T2(word);
+    case 0b010: return ASR_REG_T2(word);
+    case 0b011: return ROR_REG_T2(word);
+    default: return INSTRUCTION.UNDEFINED;
+  }
+}
+
+function idLoadWord (word: number): INSTRUCTION {
+  const op1 = (word >>> 23) & 0b11;
+  const op2 = (word >>> 6) & 0b111111;
+  const RN_PC = ((word >>> 16) & 0b1111) === 0b1111;
+
+  if ((op1 & 0b10) > 0) return INSTRUCTION.UNDEFINED;
+
+  if (RN_PC) return LDR_LIT_T2(word);
+
+  if (op1 === 0b01) return LDR_IMM_T3(word);
+
+  if (op2 === 0) return LDR_REG_T2(word);
+
+  const op3 = op2 >>> 2;
+
+  if (op3 === 0b1100 || (op3 & 0b1001) === 0b1001) return LDR_IMM_T4(word);
+
+  if (op3 === 0b1110) return LDRT_T1(word);
+
+  return INSTRUCTION.UNDEFINED;
+}
+
+function idLoadHalfWord (word: number): INSTRUCTION {
+  const op1 = (word >>> 23) & 0b11;
+  const op2 = (word >>> 6) & 0b111111;
+  const RN_PC = ((word >>> 16) & 0b1111) === 0b1111;
+  const RT_PC = ((word >>> 12) & 0b1111) === 0b1111;
+
+  if (RN_PC) {
+    return RT_PC
+      ? ((op1 & 0b10) > 0)
+        ? INSTRUCTION.UNALLOCATED
+        : INSTRUCTION.UNPREDICTABLE
+      : ((op1 & 0b10) === 0)
+        ? LDRH_LIT(word)
+        : LDRSH_LIT(word);
+  }
+
+  if (RT_PC) {
+    if ((op1 & 0b01) > 0) return INSTRUCTION.UNALLOCATED;
+
+    if (op2 === 0 || (op2 & 0b111100) === 0b1100) {
+      return INSTRUCTION.UNALLOCATED;
+    }
+
+    if ((op2 & 0b100100) === 0b100100 || (op2 & 0b111100) === 0b111000) {
+      return INSTRUCTION.UNPREDICTABLE;
+    }
+
+    return INSTRUCTION.UNDEFINED;
+  }
+
+  
+}
+
+function idLoadByte (word: number): INSTRUCTION {
   return INSTRUCTION.TODO;
 }
 
-function idLoadWord (_word: number): INSTRUCTION {
+function idStoreSingle (word: number): INSTRUCTION {
   return INSTRUCTION.TODO;
 }
 
-function idLoadHalfWord (_word: number): INSTRUCTION {
-  return INSTRUCTION.TODO;
-}
-
-function idLoadByte (_word: number): INSTRUCTION {
-  return INSTRUCTION.TODO;
-}
-
-function idStoreSingle (_word: number): INSTRUCTION {
-  return INSTRUCTION.TODO;
-}
-
-function idLongMultiplyDiff (_word: number): INSTRUCTION {
+function idLongMultiplyDiff (word: number): INSTRUCTION {
   return INSTRUCTION.TODO;
 }
 
 export function identifyWideInstruction (word: number, halfWord: boolean = false): INSTRUCTION {
   if (halfWord) {
     // handle when we only have the first half of the command
-    return INSTRUCTION.UNDEFINED;
+    return INSTRUCTION.INVALID;
   }
 
   const op1 = (word >>> 27) & 0b11;
@@ -832,7 +1284,7 @@ export function identifyWideInstruction (word: number, halfWord: boolean = false
           ? (((op2 >>> 3) & 0b1) === 1)
             ? idLongMultiplyDiff(word)
             : idMultiplyDiff(word)
-          : idDataProcRegistry(word);
+          : idDataProcRegister(word);
       }
       if ((op2 & 0b1110001) === 0) return idStoreSingle(word);
       switch (op2 & 0b111) {

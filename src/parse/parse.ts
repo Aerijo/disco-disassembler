@@ -22,7 +22,10 @@ export function parseInput (input: string): string[] {
     if (match[1] && /[^0-9A-F]/i.test(match[1])) { continue; } // is not an address; likely Offset
 
     const values = match[2].trim().split(" ");
-    bytes.push(...values);
+
+    for (const value of values) {
+      bytes.push(...(value.match(/.{1,2}/g) as any));
+    }
   }
 
   return bytes;

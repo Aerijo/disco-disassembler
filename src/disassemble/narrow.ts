@@ -1,4 +1,4 @@
-import { INSTRUCTION } from "./instructions";
+import { INSTRUCTION } from "../instructions/instructions";
 
 function resolveOpcode (opcode: number, hword: number, resolvers: ((hword: number) => INSTRUCTION)[]): INSTRUCTION {
   if (opcode >= resolvers.length) return INSTRUCTION.UNDEFINED;

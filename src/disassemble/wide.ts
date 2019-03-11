@@ -1,4 +1,4 @@
-import { INSTRUCTION } from "./instructions";
+import { INSTRUCTION } from "../instructions/instructions";
 
 function idCDP (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)

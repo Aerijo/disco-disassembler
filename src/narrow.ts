@@ -458,7 +458,6 @@ function idCondBranch (hword: number): INSTRUCTION {
 }
 
 export function identifyNarrowInstruction (hword: number): INSTRUCTION {
-  if (hword === 18288) debugger;
   // xxxx xx-- ---- ----
   return resolveOpcode(hword >>> 10, hword, [
     idShift, idShift, idShift, idShift, // 00xxxx

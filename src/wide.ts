@@ -783,6 +783,70 @@ function LDRT_T1 (_word: number): INSTRUCTION {
   return INSTRUCTION.LDRT_T1;
 }
 
+function LDRH_LIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRH_LIT_T1;
+}
+
+function LDRSH_LIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSH_LIT_T1;
+}
+
+function LDRH_IMM_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRH_IMM_T3;
+}
+
+function LDRSH_IMM_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSH_IMM_T1;
+}
+
+function LDRH_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRH_REG_T2;
+}
+
+function LDRHT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRHT_T1;
+}
+
+function LDRSH_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSH_REG_T2;
+}
+
+function LDRSH_IMM_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSH_IMM_T2;
+}
+
+function LDRSHT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSHT_T1;
+}
+
+function PLD_LIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLD_LIT_T1;
+}
+
+function PLI_IMM_LIT_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLI_IMM_LIT_T3;
+}
+
+function PLD_IMM_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLD_IMM_T1;
+}
+
+function PLI_IMM_LIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLI_IMM_LIT_T1;
+}
+
+function PLD_REG_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLD_REG_T1;
+}
+
+function PLD_IMM_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLD_IMM_T2;
+}
+
+function PLI_REG_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLI_REG_T1;
+}
+
 function idCoprocessorInstr (word: number): INSTRUCTION {
   const op1 = (word >>> 20) & 0b111111;
   const op = (word >>> 4) & 0b1;
@@ -943,7 +1007,6 @@ function idBranchesAndMisc (word: number): INSTRUCTION {
     case 0b101: return BL_T1(word);
     case 0b001: return B_T4(word);
     case 0b000:
-    case 0b010:
       if (((op >>> 3) & 0b111) !== 0b111) return B_T3(word);
       switch (op) {
         case 0b0111000:
@@ -1206,6 +1269,146 @@ function idLoadWord (word: number): INSTRUCTION {
   return INSTRUCTION.UNDEFINED;
 }
 
+function PLD_IMM_LIT_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.PLD_IMM_LIT_T2;
+}
+
+function LDRB_LIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRB_LIT_T1;
+}
+
+function LDRSB_LIT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSB_LIT_T1;
+}
+
+function LDRB_IMM_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRB_IMM_T2;
+}
+
+function LDRSB_IMM_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSB_IMM_T1;
+}
+
+function LDRB_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRB_REG_T2;
+}
+
+function LDRB_IMM_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRB_IMM_T3;
+}
+
+function LDRBT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRBT_T1;
+}
+
+function LDRSB_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSB_REG_T2;
+}
+
+function LDRSB_IMM_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSB_IMM_T2;
+}
+
+function LDRSBT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.LDRSBT_T1;
+}
+
+function STRB_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STRB_REG_T2;
+}
+
+function STRB_IMM_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STRB_IMM_T3;
+}
+
+function STRH_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STRH_REG_T2;
+}
+
+function STRH_IMM_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STRH_IMM_T3;
+}
+
+function STR_REG_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STR_REG_T2;
+}
+
+function STR_IMM_T4 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STR_IMM_T4;
+}
+
+function STRB_IMM_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STRB_IMM_T2;
+}
+
+function STRH_IMM_T2 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STRH_IMM_T2;
+}
+
+function STR_IMM_T3 (_word: number): INSTRUCTION {
+  return INSTRUCTION.STR_IMM_T3;
+}
+
+function SMULL_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMULL_T1;
+}
+
+function SDIV_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SDIV_T1;
+}
+
+function UMULL_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UMULL_T1;
+}
+
+function UDIV_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UDIV_T1;
+}
+
+function SMLAL_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLAL_T1;
+}
+
+function SMLALBB_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLALBB_T1;
+}
+
+function SMLALBT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLALBT_T1;
+}
+
+function SMLALTB_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLALTB_T1;
+}
+
+function SMLALTT_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLALTT_T1;
+}
+
+function SMALD_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMALD_T1;
+}
+
+function SMALDX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMALDX_T1;
+}
+
+function SMLSLD_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLSLD_T1;
+}
+
+function SMLSLDX_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.SMLSLDX_T1;
+}
+
+function UMLAL_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UMLAL_T1;
+}
+
+function UMAAL_T1 (_word: number): INSTRUCTION {
+  return INSTRUCTION.UMAAL_T1;
+}
+
 function idLoadHalfWord (word: number): INSTRUCTION {
   const op1 = (word >>> 23) & 0b11;
   const op2 = (word >>> 6) & 0b111111;
@@ -1218,8 +1421,8 @@ function idLoadHalfWord (word: number): INSTRUCTION {
         ? INSTRUCTION.UNALLOCATED
         : INSTRUCTION.UNPREDICTABLE
       : ((op1 & 0b10) === 0)
-        ? LDRH_LIT(word)
-        : LDRSH_LIT(word);
+        ? LDRH_LIT_T1(word)
+        : LDRSH_LIT_T1(word);
   }
 
   if (RT_PC) {
@@ -1236,19 +1439,137 @@ function idLoadHalfWord (word: number): INSTRUCTION {
     return INSTRUCTION.UNDEFINED;
   }
 
-  
+  switch (op1) {
+    case 0b01: return LDRH_IMM_T3(word);
+    case 0b11: return LDRSH_IMM_T1(word);
+    case 0b00:
+      if (op2 === 0) return LDRH_REG_T2(word);
+      if ((op2 & 0b100100) === 0b100100) return LDRH_IMM_T3(word);
+      if ((op2 & 0b111100) === 0b110000) return LDRH_IMM_T3(word);
+      if ((op2 & 0b111100) === 0b111000) return LDRHT_T1(word);
+      return INSTRUCTION.UNDEFINED;
+    case 0b10:
+      if (op2 === 0) return LDRSH_REG_T2(word);
+      if ((op2 & 0b100100) === 0b100100) return LDRSH_IMM_T2(word);
+      if ((op2 & 0b111100) === 0b110000) return LDRSH_IMM_T2(word);
+      if ((op2 & 0b111100) === 0b111000) return LDRSHT_T1(word);
+      return INSTRUCTION.UNDEFINED;
+    default: return INSTRUCTION.UNDEFINED;
+  }
 }
 
 function idLoadByte (word: number): INSTRUCTION {
-  return INSTRUCTION.TODO;
+  const op1 = (word >>> 23) & 0b11;
+  const op2 = (word >>> 6) & 0b111111;
+  const RN_PC = ((word >>> 16) & 0b1111) === 0b1111;
+  const RT_PC = ((word >>> 12) & 0b1111) === 0b1111;
+
+  if (RT_PC) {
+    if (RN_PC) {
+      switch (op1) {
+        case 0b00:
+        case 0b01: return PLD_LIT_T1(word);
+        case 0b10:
+        case 0b11: return PLI_IMM_LIT_T3(word);
+        default: return INSTRUCTION.UNDEFINED;
+      }
+    }
+
+    switch (op1) {
+      case 0b01: return PLD_IMM_T1(word);
+      case 0b11: return PLI_IMM_LIT_T1(word);
+      case 0b00:
+        if (op2 === 0) return PLD_REG_T1(word);
+        if ((op2 & 0b100100) === 0b100100) return INSTRUCTION.UNPREDICTABLE;
+        if ((op2 & 0b111100) === 0b110000) return PLD_IMM_T2(word);
+        if ((op2 & 0b111100) === 0b111000) return INSTRUCTION.UNPREDICTABLE;
+        return INSTRUCTION.UNDEFINED;
+      case 0b10:
+        if (op2 === 0) return PLI_REG_T1(word);
+        if ((op2 & 0b100100) === 0b100100) return INSTRUCTION.UNPREDICTABLE;
+        if ((op2 & 0b111100) === 0b110000) return PLD_IMM_LIT_T2(word);
+        if ((op2 & 0b111100) === 0b111000) return INSTRUCTION.UNPREDICTABLE;
+        return INSTRUCTION.UNDEFINED;
+      default: return INSTRUCTION.UNDEFINED;
+    }
+  }
+
+  if (RN_PC) {
+    switch (op1) {
+      case 0b00:
+      case 0b01: return LDRB_LIT_T1(word);
+      case 0b10:
+      case 0b11: return LDRSB_LIT_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+  }
+
+  switch (op1) {
+    case 0b01: return LDRB_IMM_T2(word);
+    case 0b11: return LDRSB_IMM_T1(word);
+    case 0b00:
+      if (op2 === 0) return LDRB_REG_T2(word);
+      if ((op2 & 0b100100) === 0b100100) return LDRB_IMM_T3(word);
+      if ((op2 & 0b111100) === 0b110000) return LDRB_IMM_T3(word);
+      if ((op2 & 0b111100) === 0b111000) return LDRBT_T1(word);
+      return INSTRUCTION.UNDEFINED;
+    case 0b10:
+      if (op2 === 0) return LDRSB_REG_T2(word);
+      if ((op2 & 0b100100) === 0b100100) return LDRSB_IMM_T2(word);
+      if ((op2 & 0b111100) === 0b110000) return LDRSB_IMM_T2(word);
+      if ((op2 & 0b111100) === 0b111000) return LDRSBT_T1(word);
+      return INSTRUCTION.UNDEFINED;
+    default: return INSTRUCTION.UNDEFINED;
+  }
 }
 
 function idStoreSingle (word: number): INSTRUCTION {
-  return INSTRUCTION.TODO;
+  const op1 = (word >>> 21) & 0b111;
+  const op2Eff = (word >>> 11) & 0b1;
+
+  switch (op1) {
+    case 0b000: return (op2Eff === 0) ? STRB_REG_T2(word) : STRB_IMM_T3(word);
+    case 0b001: return (op2Eff === 0) ? STRH_REG_T2(word) : STRH_IMM_T3(word);
+    case 0b010: return (op2Eff === 0) ? STR_REG_T2(word) : STR_IMM_T4(word);
+    case 0b100: return STRB_IMM_T2(word);
+    case 0b101: return STRH_IMM_T2(word);
+    case 0b110: return STR_IMM_T3(word);
+    default: return INSTRUCTION.UNDEFINED;
+  }
 }
 
 function idLongMultiplyDiff (word: number): INSTRUCTION {
-  return INSTRUCTION.TODO;
+  const op1 = (word >>> 20) & 0b111;
+  const op2 = (word >>> 4) & 0b1111;
+
+  switch (op1) {
+    case 0b000: return (op2 === 0) ? SMULL_T1(word) : INSTRUCTION.UNDEFINED;
+    case 0b001: return (op2 === 0b1111) ? SDIV_T1(word) : INSTRUCTION.UNDEFINED;
+    case 0b010: return (op2 === 0) ? UMULL_T1(word) : INSTRUCTION.UNDEFINED;
+    case 0b011: return (op2 === 0b1111) ? UDIV_T1(word) : INSTRUCTION.UNDEFINED;
+    case 0b100:
+      if (op2 === 0) return SMLAL_T1(word);
+      switch (op2) {
+        case 0b1000: return SMLALBB_T1(word);
+        case 0b1001: return SMLALBT_T1(word);
+        case 0b1010: return SMLALTB_T1(word);
+        case 0b1011: return SMLALTT_T1(word);
+        case 0b1100: return SMALD_T1(word);
+        case 0b1101: return SMALDX_T1(word);
+        default: return INSTRUCTION.UNDEFINED;
+      }
+    case 0b101: switch (op2) {
+      case 0b1100: return SMLSLD_T1(word);
+      case 0b1101: return SMLSLDX_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    case 0b110: switch (op2) {
+      case 0b0000: return UMLAL_T1(word);
+      case 0b0110: return UMAAL_T1(word);
+      default: return INSTRUCTION.UNDEFINED;
+    }
+    default: return INSTRUCTION.UNDEFINED;
+  }
 }
 
 export function identifyWideInstruction (word: number, halfWord: boolean = false): INSTRUCTION {
@@ -1263,13 +1584,11 @@ export function identifyWideInstruction (word: number, halfWord: boolean = false
 
   switch (op1) {
     case 0b01:
-      if (((op2 >>> 6) & 0b1) > 0) return idCoprocessorInstr(word);
-      if (((op2 >>> 5) & 0b1) > 0) return idDataProcessingShifted(word);
-      if (((op2 >>> 3) & 0b1) > 0) {
-        return idLdrStrMultiple(word);
-      } else {
-        return idLdrStrDual(word);
-      }
+      if ((op2 & 0b1100100) === 0b0000000) return idLdrStrMultiple(word);
+      if ((op2 & 0b1100100) === 0b0000100) return idLdrStrDual(word);
+      if ((op2 & 0b1100000) === 0b0100000) return idDataProcessingShifted(word);
+      if ((op2 & 0b1000000) === 0b1000000) return idCoprocessorInstr(word);
+      return INSTRUCTION.UNDEFINED;
     case 0b10:
       if (op) return idBranchesAndMisc(word);
       if (((op2 >>> 5) & 0b1) === 0b0) {
@@ -1278,7 +1597,7 @@ export function identifyWideInstruction (word: number, halfWord: boolean = false
         return idDataProcPlainBinaryImmediate(word);
       }
     case 0b11:
-      if (((op2 >>> 6) & 0b1) > 0) return idCoprocessorInstr(word);
+      if ((op2 & 0b1000000) > 0) return idCoprocessorInstr(word);
       if (((op2 >>> 5) & 0b1) > 0) {
         return (((op2 >>> 4) & 0b1) > 0)
           ? (((op2 >>> 3) & 0b1) === 1)

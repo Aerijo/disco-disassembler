@@ -22,6 +22,7 @@ export enum InstrType {
     SP_PLUS_REGISTER,
     SP_MINUS_IMMEDIATE,
     SP_MINUS_REGISTER,
+    IMMEDIATE_LITERAL,
 }
 
 class BytePattern {
@@ -40,8 +41,10 @@ class BytePattern {
           case "i": range[1] += 1; break;
           case "P": range[1] += 1; break;
           case "U": range[1] += 1; break;
+          case "N": range[1] += 1; break;
           case "W": range[1] += 1; break;
-          default: throw new Error(`Unknown variable ${parts[0]}. Treating as single width`);
+          case "type": range[1] += 2; break;
+          default: throw new Error(`Unknown variable ${parts[0]}`);
         }
       }
     } else {

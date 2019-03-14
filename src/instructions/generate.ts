@@ -23,6 +23,7 @@ function typeFromShorthand (val: string): InstrType {
     case "SPR": return InstrType.SP_PLUS_REGISTER;
     case "SMI": return InstrType.SP_MINUS_IMMEDIATE;
     case "SMR": return InstrType.SP_MINUS_REGISTER;
+    case "IMMLIT": return InstrType.IMMEDIATE_LITERAL;
     default:
       console.error(`Unrecognised type ${val}`);
       return InstrType.NONE;

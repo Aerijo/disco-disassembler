@@ -41,6 +41,6 @@ export function getMachineCodeBytes (input: string): number[] {
   return parseInput(input).map(b => parseInt(b, 16));
 }
 
-export function isWideInstruction (halfWord: number) {
-  return (halfWord & 0xE000) === 0xE000 && (halfWord & 0x1800) > 0; // first 3 bits are true && 4th or 5th is true
+export function isWideInstruction (hword: number) {
+  return (hword & 0xE000) === 0xE000 && (hword & 0x1800) > 0; // first 3 bits are high && 4th or 5th is high
 }

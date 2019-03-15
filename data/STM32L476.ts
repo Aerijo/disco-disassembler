@@ -800,5 +800,245 @@ export const encodings: EncodingDefinition = {
   STRBT_T1: {
     pattern: "11111 00 0 0 00 0 [Rn:4] [Rt:4] 1 110 [imm8]",
   },
-
+  STRD_IMM_T1: {
+    pattern: "11101 00 [P] [U] 1 [W] 0 [Rn:4] [Rt:4] [Rt2:4] [imm8]",
+  },
+  STREX_T1: {
+    pattern: "11101 00 0 0 1 0 0 [Rn:4] [Rt:4] [Rd:4] [imm8]",
+  },
+  STREXB_T1: {
+    pattern: "11101 000110 0 [Rn:4] [Rt:4] (1111) 0100 [Rd:4]",
+  },
+  STREXH_T1: {
+    pattern: "11101 000110 0 [Rn:4] [Rt:4] (1111) 0101 [Rd:4]",
+  },
+  STRH_IMM_T1: {
+    pattern: "1000 0 [imm5] [Rn:3] [Rt:3]",
+  },
+  STRH_IMM_T2: {
+    pattern: "11111 00 0 1 01 0 [Rn:4] [Rt:4] [imm12]",
+  },
+  STRH_IMM_T3: {
+    pattern: "11111 00 0 0 01 0 [Rn:4] [Rt:4] 1 [P] [U] [W] [imm8]",
+  },
+  STRH_REG_T1: {
+    pattern: "0101 001 [Rm:3] [Rn:3] [Rt:3]",
+  },
+  STRH_REG_T2: {
+    pattern: "11111 00 0 0 01 0 [Rn:4] [Rt:4] 0 00000 [imm2] [Rm:4]",
+  },
+  STRHT_T1: {
+    pattern: "11111 00 0 0 01 0 [Rn:4] [Rt:4] 1 110 [imm8]",
+  },
+  STRT_T1: {
+    pattern: "11111 00 0 0 10 0 [Rn:4] [Rt:4] 1 110 [imm8]",
+  },
+  SUB_IMM_T1: {
+    pattern: "000 11 1 1 [imm3] [Rn:3] [Rd:3]",
+  },
+  SUB_IMM_T2: {
+    pattern: "001 11 [Rdn:3] [imm8]",
+  },
+  SUB_IMM_T3: {
+    pattern: "11110 [i] 0 1101 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+  },
+  SUB_IMM_T4: {
+    pattern: "11110 [i] 1 0101 0 [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+  },
+  SUB_REG_T1: {
+    pattern: "000 11 0 1 [Rm:3] [Rn:3] [Rd:3]",
+  },
+  SUB_REG_T2: {
+    pattern: "11101 01 1101 [S] [Rn:4] (0) [imm3] [Rd:4] [imm2] [type] [Rm:4]",
+  },
+  SUB_SMI_T1: {
+    pattern: "1011 0000 1 [imm7]",
+  },
+  SUB_SMI_T2: {
+    pattern: "111110 [i] 1101 [S] 1101 0 [imm3] [Rd:4] [imm8]",
+  },
+  SUB_SMI_T3: {
+    pattern: "11110 [i] 1 0101 0 1101 0 [imm3] [Rd:4] [imm8]",
+  },
+  SUB_SMR_T1: {
+    pattern: "11101 0 1 1101 [S] 1101 (0) [imm3] [Rd:4] [imm2] [type] [Rm:4]",
+  },
+  SVC_T1: {
+    pattern: "1101 1111 [imm8]",
+  },
+  SXTAB_T1: {
+    pattern: "11111 010 0 100 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  SXTAB16_T1: {
+    pattern: "11111 010 0 010 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  SXTAH_T1: {
+    pattern: "11111 010 0 000 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  SXTB_T1: {
+    pattern: "1011 0010 01 [Rm:3] [Rd:3]",
+  },
+  SXTB_T2: {
+    pattern: "11111 010 0 100 1111 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  SXTB16_T1: {
+    pattern: "11111 010 0 010 1111 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  SXTH_T1: {
+    pattern: "1011 0010 00 [Rm:3] [Rd:3]",
+  },
+  SXTH_T2: {
+    pattern: "11111 010 0 000 1111 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  TBB_T1: {
+    pattern: "11101 00 0 1 1 0 1 [Rn:4] (1111) (0000) 000 0 [Rm:4]",
+  },
+  TBH_T1: {
+    pattern: "11101 00 0 1 1 0 1 [Rn:4] (1111) (0000) 000 1 [Rm:4]",
+  },
+  TEQ_IMM_T1: {
+    pattern: "11110 [i] 0 0100 1 [Rn:4] 0 [imm3] 1111 [imm8]",
+  },
+  TEQ_REG_T1: {
+    pattern: "11101 01 0100 1 [Rn:4] (0) [imm3] 1111 [imm2] [type:2] [Rm:4]",
+  },
+  TST_IMM_T1: {
+    pattern: "11110 [i] 0 0000 1 [Rn:4] 0 [imm3] 1111 [imm8]",
+  },
+  TST_REG_T1: {
+    pattern: "010000 1000 [Rm:3] [Rn:3]",
+  },
+  TST_REG_T2: {
+    pattern: "11101 01 0000 1 [Rn:4] (0) [imm3] 1111 [imm2] [type] [Rm:4]",
+  },
+  UADD16_T1: {
+    pattern: "11111 010 1 001 [Rn:4] 1111 [Rd:4] 0 100 [Rm:4]",
+  },
+  UADD8_T1: {
+    pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 0 100 [Rm:4]",
+  },
+  UASX_T1: {
+    pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 0 100 [Rm:4]",
+  },
+  UBFX_T1: {
+    pattern: "11110 (0) 11 110 0 [Rn:4] 0 [imm3] [Rd:4] [imm2] (0) [widthm1:5]",
+  },
+  UDF_T1: {
+    pattern: "1101 1110 [imm8]",
+  },
+  UDF_T2: {
+    pattern: "111 10 1111111 [imm4] 1 010 [imm12]",
+  },
+  UDIV_T1: {
+    pattern: "11111 011101 1 [Rn:4] (1111) [Rd:4] 1111 [Rm:4]",
+  },
+  UHADD16_T1: {
+    pattern: "11111 010 1 001 [Rn:4] 1111 [Rd:4] 0 110 [Rm:4]",
+  },
+  UHADD8_T1: {
+    pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 0 110 [Rm:4]",
+  },
+  UHASX_T1: {
+    pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 0 110 [Rm:4]",
+  },
+  UHSAX_T1: {
+    pattern: "11111 010 1 110 [Rn:4] 1111 [Rd:4] 0 110 [Rm:4]",
+  },
+  UHSUB16_T1: {
+    pattern: "11111 010 1 101 [Rn:4] 1111 [Rd:4] 0 110 [Rm:4]",
+  },
+  UHSUB8_T1: {
+    pattern: "11111 010 1 100 [Rn:4] 1111 [Rd:4] 0 110 [Rm:4]",
+  },
+  UMAAL_T1: {
+    pattern: "11111 0111 110 [Rn:4] [RdLo:4] [RdHi:4] 0110 [Rm:4]",
+  },
+  UMLAL_T1: {
+    pattern: "11111 0111 110 [Rn:4] [RdLo:4] [RdHi:4] 0000 [Rm:4]",
+  },
+  UMULL_T1: {
+    pattern: "11111 0111 010 [Rn:4] [RdLo:4] [RdHi:4] 0000 [Rm:4]",
+  },
+  UQADD16_T1: {
+    pattern: "11111 010 1 001 [Rn:4] 1111 [Rd:4] 0 101 [Rm:4]",
+  },
+  UQADD8_T1: {
+    pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 0 101 [Rm:4]",
+  },
+  UQASX_T1: {
+    pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 0 101 [Rm:4]",
+  },
+  UQSAX_T1: {
+    pattern: "11111 010 1 110 [Rn:4] 1111 [Rd:4] 0 101 [Rm:4]",
+  },
+  UQSUB16_T1: {
+    pattern: "11111 010 1 101 [Rn:4] 1111 [Rd:4] 0 101 [Rm:4]",
+  },
+  UQSUB8_T1: {
+    pattern: "11111 010 1 100 [Rn:4] 1111 [Rd:4] 0 101 [Rm:4]",
+  },
+  USAD8_T1: {
+    pattern: "11111 0110 111 [Rn:4] 1111 [Rd:4] 0000 [Rm:4]",
+  },
+  USADA8_T1: {
+    pattern: "11111 0110 111 [Rn:4] [Ra:4] [Rd:4] 0000 [Rm:4]",
+  },
+  USAT_T1: {
+    pattern: "11110 (0) 11 10 [sh:1] 0 [Rn:4] 0 [imm3] [Rd:4] [imm2] (0) [sat_imm:5]",
+  },
+  USAT16_T1: {
+    pattern: "11110 (0) 11 101 0 [Rn:4] 0 000 [Rd:4] 00 (00) [sat_imm:4]",
+  },
+  USAX_T1: {
+    pattern: "11111 010 1 110 [Rn:4] 1111 [Rd:4] 0 100 [Rm:4]",
+  },
+  USUB16_T1: {
+    pattern: "11111 010 1 101 [Rn:4] 1111 [Rd:4] 0 100 [Rm:4]",
+  },
+  USUB8_T1: {
+    pattern: "11111 010 1 100 [Rn:4] 1111 [Rd:4] 0 100 [Rm:4]",
+  },
+  UXTAB_T1: {
+    pattern: "11111 010 0 101 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  UXTAB16_T1: {
+    pattern: "11111 010 0 011 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  UXTAH_T1: {
+    pattern: "11111 010 0 001 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  UXTB_T1: {
+    pattern: "1011 0010 11 [Rm:3] [Rd:3]",
+  },
+  UXTB_T2: {
+    pattern: "11111 010 0 101 1111 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  UXTB16_T1: {
+    pattern: "11111 010 0 011 1111 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  UXTH_T1: {
+    pattern: "1011 0010 10 [Rm:3] [Rd:3]",
+  },
+  UXTH_T2: {
+    pattern: "11111 010 0 001 1111 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
+  },
+  // TODO: Floating point
+  WFE_T1: {
+    pattern: "1011 1111 0010 0000",
+  },
+  WFE_T2: {
+    pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000010",
+  },
+  WFI_T1: {
+    pattern: "1011 1111 0011 0000",
+  },
+  WFI_T2: {
+    pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000011",
+  },
+  YIELD_T1: {
+    pattern: "1011 1111 0001 0000",
+  },
+  YIELD_T2: {
+    pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000001",
+  },
 };

@@ -11,22 +11,33 @@ enum Bit {
 interface Variable {
   name: string;
   range: [number, number];
+  mask: number;
+  shift: number;
+}
+
+interface PreVariable {
+  name: string;
+  range: [number, number];
+}
+
+export interface ResolvedVariable extends Variable {
+  value: number;
 }
 
 export enum InstrType {
-    NONE,
-    IMMEDIATE,
-    REGISTER,
-    LITERAL,
-    SP_PLUS_IMMEDIATE,
-    SP_PLUS_REGISTER,
-    SP_MINUS_IMMEDIATE,
-    SP_MINUS_REGISTER,
-    IMMEDIATE_LITERAL,
+  NONE,
+  IMMEDIATE,
+  REGISTER,
+  LITERAL,
+  SP_PLUS_IMMEDIATE,
+  SP_PLUS_REGISTER,
+  SP_MINUS_IMMEDIATE,
+  SP_MINUS_REGISTER,
+  IMMEDIATE_LITERAL,
 }
 
 class BytePattern {
-  static constructVariable (input: string, start: number): Variable {
+  static extractVariableProperties (input: string, start: number): PreVariable {
     const parts = input.split(/:/);
 
     let name = parts[0];
@@ -58,6 +69,16 @@ class BytePattern {
     return { name, range };
   }
 
+  static constructVariables (preVariables: PreVariable[], instructionWidth: number): Variable[] {
+    return preVariables.map(v => {
+      const varWidth = v.range[1] - v.range[0];
+      const shift = instructionWidth - v.range[0];
+      const mask = ((2 ** varWidth) - 1) << shift;
+
+      return { name: v.name, range: v.range, mask, shift };
+    });
+  }
+
   static createMasks (bits: ReadonlyArray<Bit>): { bitmask: number, bitmaskCheck: number } {
     let bitmask = 0;
     let bitmaskCheck = 0;
@@ -86,7 +107,7 @@ class BytePattern {
   static parseTemplate (template: string, duplicateVars: Duplicate): {bits: Bit[], variables: Variable[]} {
     let shouldMode = false;
     const bits: Bit[] = [];
-    const variables: Variable[] = [];
+    const preVariables: {name: string, range: [number, number]}[] = [];
 
     for (let i = 0; i < template.length; i++) {
       const token = template.charAt(i);
@@ -104,17 +125,19 @@ class BytePattern {
           const start = i + 1;
           while (template.charAt(i) !== "]") i++;
 
-          const variable = BytePattern.constructVariable(template.slice(start, i), bits.length);
-          if (duplicateVars === Duplicate.NONE && variables.some(v => v.name === variable.name)) {
-            throw new Error(`Duplicate variable ${variable.name} in template ${template}`);
+          const variableData = BytePattern.extractVariableProperties(template.slice(start, i), bits.length);
+          if (duplicateVars === Duplicate.NONE && preVariables.some(v => v.name === variableData.name)) {
+            throw new Error(`Duplicate variable ${variableData.name} in template ${template}`);
           }
-          variables.push(variable);
-          for (let _ = variable.range[0]; _ < variable.range[1]; _++) bits.push(Bit.ANY); // tslint disable prefer-for-of-loop
+          preVariables.push(variableData);
+          for (let _ = variableData.range[0]; _ < variableData.range[1]; _++) bits.push(Bit.ANY); // tslint disable prefer-for-of-loop
           break;
         default:
           throw new Error(`Unexpected token ${token} in template ${template}`);
       }
     }
+
+    const variables = BytePattern.constructVariables(preVariables, bits.length);
 
     if (bits.length === 16 || bits.length === 32) return { bits, variables };
 
@@ -128,38 +151,52 @@ interface EncodingParams {
   encoding: number;
   type: InstrType;
   duplicateVars?: Duplicate;
+  page: number;
 }
 
 export class Encoding {
+  /** General name of the instruction. E.g., `ADD` in `ADD (Immediate) T1` */
   name: string;
 
-  encoding: number;
-
+  /** Type of instruction, if applicable (NONE otherwise). E.g., `IMM` for `ADD (Immediate) T1` */
   type: InstrType;
 
-  wide: boolean;
+  /** The encoding number of the instruction + type combination. E.g., `T1` in `ADD (Immediate) T1` */
+  encoding: number;
 
+  /** The width of the encoding. E.g., 32 for wide (32-bit) instructions. */
+  width: number;
+
+  /** A mask that can be used to isolate bits with specified values */
   bitmask: number;
 
+  /** A mask to test equality with an instruction ANDed with the bitmask. If equal, it is a match. */
   bitmaskCheck: number;
 
-  /** The special ranges for things like Rn and i, imm3, imm8, etc. Range is inclusive */
+  /** The special ranges for things like Rn and i, imm3, imm8, etc. Range is exclusive end */
   variables: Variable[];
 
+  /** The string pattern this encoding was created from */
   rawPattern: string;
+
+  /** The pattern expanded into an array of Bit's, which specifies what values / how precise it needs to be in each index */
   bits: Bit[];
+
+  /** The page in the manual (section A7) where this instruction is specified */
+  page: number;
 
   constructor (param: EncodingParams) {
     this.name = param.name;
     this.rawPattern = param.pattern;
     this.encoding = param.encoding;
     this.type = param.type;
+    this.page = param.page;
 
     const { bits, variables } = BytePattern.parseTemplate(param.pattern, param.duplicateVars || Duplicate.NONE);
     this.bits = bits;
     this.variables = variables;
 
-    this.wide = this.bits.length === 32;
+    this.width = this.bits.length;
 
     const { bitmask, bitmaskCheck } = BytePattern.createMasks(this.bits);
     this.bitmask = bitmask;
@@ -172,6 +209,51 @@ export class Encoding {
    */
   matches (input: number): boolean {
     return (input & this.bitmask) === this.bitmaskCheck;
+  }
+
+  /** @returns A readable representaion of the byte pattern, where `x` means any bit is allowed */
+  toString (): string {
+    return this.bits.map(b => {
+      switch (b) {
+        case Bit.ZERO: return "0";
+        case Bit.ONE: return "1";
+        default: return "x";
+      }
+    }).join("");
+  }
+
+  /**
+   * Compares the specicivity against another Encoding. Returns 1 if this
+   * is a specific case of the other, -1 if the other way round, and 0 if they
+   * are unrelated
+   */
+  compare (other: Encoding): number {
+    let direction = 0;
+    for (let i = 0; i < this.bits.length; i++) {
+      const e1bit = this.bits[i];
+      const e2bit = other.bits[i];
+      const cmp = compareBits(e1bit, e2bit);
+      if (cmp === 0) { continue; }
+      if (direction === 0) {
+        direction = cmp;
+      } else {
+        if (direction !== cmp) { return 0; }
+      }
+    }
+
+    return direction;
+  }
+
+  /** Converts an array of variable definitions into a map name -> value & other */
+  extractVariableValues (instruction: number): { [name:string]: ResolvedVariable } {
+    const resolved: { [name:string]: ResolvedVariable } = {};
+    for (const variable of this.variables) {
+      const name = variable.name;
+      const value = (instruction >>> variable.shift) & variable.mask;
+
+      resolved[name] = {...variable, value };
+    }
+    return resolved;
   }
 }
 
@@ -228,7 +310,7 @@ export function splitEncodingsByOptimalBit (encodings: Encoding[], length: numbe
   return { high, low, index: splitIndex };
 }
 
-type EncodingNode = {
+export type EncodingNode = {
   /** If this contains a list of encodings that all match the given input */
   leaf: false;
 
@@ -274,15 +356,54 @@ function allEncodingsMatch (encodings: Encoding[], length: number): boolean {
   return true;
 }
 
+/**
+ * Compares the specicivity of the bit pair. Returns 1 if the first
+ * is more specific than the second, 0 if same, and -1 if the second
+ * is more specific than the first.
+ */
+function compareBits (b1: Bit, b2: Bit): number {
+  if (b1 === b2) { return 0; }
+
+  const b2general = b2 > Bit.ONE;
+  return b1 > Bit.ONE
+    ? b2general ? 0 : 1
+    : b2general ? -1 : 0;
+}
+
+function customOrderEncodings (encodings: Encoding[]): Encoding[] | null {
+  // TODO generalise to accept other custom orders
+  if (encodings.length !== 3) { return null; }
+  debugger;
+  if (encodings[0].name !== "ADD" || encodings[1].name !== "ADD" || encodings[2].name !== "ADD") { return null; }
+
+  const first = encodings.find(e => e.type === InstrType.SP_PLUS_REGISTER && e.encoding === 1);
+  const second = encodings.find(e => e.type === InstrType.SP_PLUS_REGISTER && e.encoding === 2);
+  const third = encodings.find(e => e.type === InstrType.REGISTER && e.encoding === 2);
+  if (first === undefined || second === undefined || third === undefined) { return null; }
+
+  return [first, second, third];
+}
+
+function autoOrderEncodings (encodings: Encoding[]): Encoding[] {
+  return encodings.sort((a, b) => {
+    if (a.name === "CMP" && b.name === "SUB") { debugger; }
+    const cmp = a.compare(b);
+    if (cmp === 0) { throw new Error(`Ambiguous instruction ordering: ${a.name}:${a.toString()}, ${b.name}:${b.toString()}`); }
+    return cmp;
+  });
+}
+
 export function buildEncodingTree (encodings: Encoding[], length: number): EncodingNode {
   if (allEncodingsMatch(encodings, length)) {
-    return { leaf: true, encodings, size: encodings.length };
+    const customOrdering = customOrderEncodings(encodings);
+    if (customOrdering !== null) {
+      return { leaf: true, encodings: customOrdering, size: encodings.length };
+    }
+    return { leaf: true, encodings: autoOrderEncodings(encodings), size: encodings.length };
   }
 
   const { high, low, index } = splitEncodingsByOptimalBit(encodings, length);
   const bitmask = 2 ** (length - index - 1); // 1 << will break for values near 32
-
-  if (index === 0) debugger;
 
   return {
     size: encodings.length,
@@ -293,7 +414,7 @@ export function buildEncodingTree (encodings: Encoding[], length: number): Encod
   };
 }
 
-export function identifyNarrowInstructionFromTree (instruction: number, node: EncodingNode): Encoding | null {
+export function identifyInstructionFromTree (instruction: number, node: EncodingNode): Encoding | null {
   if (node.leaf) {
     for (const encoding of node.encodings) {
       if (encoding.matches(instruction)) return encoding;
@@ -302,8 +423,8 @@ export function identifyNarrowInstructionFromTree (instruction: number, node: En
   }
 
   if ((instruction & node.bitmask) > 0) {
-    return identifyNarrowInstructionFromTree(instruction, node.high);
+    return identifyInstructionFromTree(instruction, node.high);
   } else {
-    return identifyNarrowInstructionFromTree(instruction, node.low);
+    return identifyInstructionFromTree(instruction, node.low);
   }
 }

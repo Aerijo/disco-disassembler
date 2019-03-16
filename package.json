@@ -5,6 +5,7 @@
   "main": "dist/main",
   "scripts": {
     "build": "tsc",
+    "program": "tsc && node ./dist/src/main",
     "test": "tsc && node ./spec/main"
   },
   "author": "Benjamin Gray",

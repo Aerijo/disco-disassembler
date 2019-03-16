@@ -1,8 +1,9 @@
-import { EncodingDefinition, Duplicate } from "../src/instructions/generate";
+import { EncodingDefinition, Duplicate, KeywordMap } from "../src/instructions/generate";
 
 export const encodings: EncodingDefinition = {
   ADC_IMM_T1: {
     pattern: "11110 [i] 0 1010 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+    page: 185,
   },
   ADC_REG_T1: {
     pattern: "010000 0101 [Rm:3] [Rdn:3]",
@@ -99,9 +100,11 @@ export const encodings: EncodingDefinition = {
   },
   BFI_T1: {
     pattern: "11110 (0) 11 011 0 [Rn:4] 0 [imm3] [Rd:4] [imm2] (0) [msb:5]",
+    page: 210,
   },
   BIC_IMM_T1: {
     pattern: "11110 [i] 0 0001 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+    page: 211,
   },
   BIC_REG_T1: {
     pattern: "010000 1110 [Rm:3] [Rdn:3]",
@@ -114,18 +117,23 @@ export const encodings: EncodingDefinition = {
   },
   BL_T1: {
     pattern: "11110 [S] [imm10] 11 [J1:1] 1 [J2:1] [imm11]",
+    page: 216,
   },
   BLX_REG_T1: {
     pattern: "010001 11 1 [Rm:4] (000)",
+    page: 217,
   },
   BX_T1: {
     pattern: "010001 11 0 [Rm:4] (000)",
+    page: 218,
   },
   CBZ_T1: {
     pattern: "1011 0 0 [i] 1 [imm5] [Rn:3]",
+    page: 219,
   },
   CBNZ_T1: {
     pattern: "1011 1 0 [i] 1 [imm5] [Rn:3]", // shares diagram with CBZ
+    page: 219,
   },
   CDP_T1: {
     pattern: "1110 1110 [opc1:4] [CRn:4] [CRd:4] [coproc:4] [opc2:3] 0 [CRm:4]",
@@ -139,9 +147,11 @@ export const encodings: EncodingDefinition = {
   CLZ_T1: {
     pattern: "11111 010 1 011 [Rm:4] 1111 [Rd:4] 1 000 [Rm:4]",
     duplicateVariables: Duplicate.MATCH,
+    page: 224,
   },
   CMN_IMM_T1: {
     pattern: "11110 [i] 0 1000 1 [Rn:4] 0 [imm3] 1111 [imm8]",
+    page: 225,
   },
   CMN_REG_T1: {
     pattern: "010000 1011 [Rm:3] [Rn:3]",
@@ -170,18 +180,22 @@ export const encodings: EncodingDefinition = {
   // NOTE: CPY is alias for MOV
   DBG_T1: {
     pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 1111 [option:4]",
+    page: 234,
   },
   DMB_T1: {
     pattern: "11110 0 111 01 1 (1111) 10 (0) 0 (1111) 0101 [option:4]",
+    page: 235,
   },
   DSB_T1: {
     pattern: "11110 0 111 01 1 (1111) 10 (0) 0 (1111) 0100 [option:4]",
   },
   EOR_IMM_T1: {
     pattern: "11110 [i] 0 0100 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+    page: 238,
   },
   EOR_REG_T1: {
     pattern: "010000 0001 [Rm:3] [Rdn:3]",
+    page: 239,
   },
   EOR_REG_T2: {
     pattern: "11101 01 0100 [S] [Rn:4] (0) [imm3] [Rd:4] [imm2] [type] [Rm:4]",
@@ -191,6 +205,7 @@ export const encodings: EncodingDefinition = {
   },
   IT_T1: {
     pattern: "1011 1111 [firstcond:4] [mask:4]",
+    page: 242,
   },
   LDC_IMM_T1: {
     pattern: "1110 110 [P] [U] [D:1] [W] 1 [Rn:4] [CRd:4] [coproc:4] [imm8]",
@@ -269,9 +284,11 @@ export const encodings: EncodingDefinition = {
   },
   LDREXB_T1: {
     pattern: "11101 000110 1 [Rn:4] [Rt:4] (1111) 0100 (1111)",
+    page: 271,
   },
   LDREXH_T1: {
     pattern: "11101 000110 1 [Rn:4] [Rt:4] (1111) 0101 (1111)",
+    page: 272,
   },
   LDRH_IMM_T1: {
     pattern: "1000 1 [imm5] [Rn:3] [Rt:3]",
@@ -332,9 +349,11 @@ export const encodings: EncodingDefinition = {
   },
   LDRT_T1: {
     pattern: "11111 00 0 0 10 1 [Rn:4] [Rt:4] 1 110 [imm8]",
+    page: 297,
   },
   LSL_IMM_T1: {
     pattern: "000 00 [imm5] [Rm:3] [Rd:3]",
+    page: 298,
   },
   LSL_IMM_T2: {
     pattern: "11101 01 0010 [S] 1111 (0) [imm3] [Rd:4] [imm2] 00 [Rm:4]",
@@ -374,9 +393,11 @@ export const encodings: EncodingDefinition = {
   },
   MLS_T1: {
     pattern: "11111 0110 000 [Rn:4] [Ra:4] [Rd:4] 0001 [Rm:4]",
+    page: 311,
   },
   MOV_IMM_T1: {
     pattern: "001 00 [Rd:3] [imm8]",
+    page: 312,
   },
   MOV_IMM_T2: {
     pattern: "11110 [i] 0 0010 [S] 1111 0 [imm3] [Rd:4] [imm8]",
@@ -395,9 +416,11 @@ export const encodings: EncodingDefinition = {
   },
   MOVT_T1: {
     pattern: "11110 [i] 10 1 1 0 0 [imm4] 0 [imm3] [Rd:4] [imm8]",
+    page: 317,
   },
   MRC_T1: {
     pattern: "1110 1110 [opc1:3] 1 [CRn:4] [Rt:4] [coproc:4] [opc2:3] 1 [CRm:4]",
+    page: 318,
   },
   MRC2_T2: {
     pattern: "1111 1110 [opc1:3] 1 [CRn:4] [Rt:4] [coproc:4] [opc2:3] 1 [CRm:4]",
@@ -413,9 +436,11 @@ export const encodings: EncodingDefinition = {
   },
   MSR_T1: {
     pattern: "11110 0 1110 0 (0) [Rn:4] 10 (0) 0 [mask:2] (0) (0) [SYSm:8]",
+    page: 323,
   },
   MUL_T1: {
     pattern: "010000 1101 [Rn:3] [Rdm:3]",
+    page: 324,
   },
   MUL_T2: {
     pattern: "11111 0110 000 [Rn:4] 1111 [Rd:4] 0000 [Rm:4]",
@@ -432,18 +457,22 @@ export const encodings: EncodingDefinition = {
   // NEG is symonym for RSB (imm) with #0
   NOP_T1: {
     pattern: "1011 1111 0000 0000",
+    page: 331,
   },
   NOP_T2: {
     pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000000",
   },
   ORN_IMM_T1: {
     pattern: "11110 [i] 0 0011 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+    page: 332,
   },
   ORN_REG_T1: {
     pattern: "11101 01 0011 [S] [Rn:4] (0) [imm3] [Rd:4] [imm2] [type] [Rm:4]",
+    page: 333,
   },
   ORR_IMM_T1: {
     pattern: "11110 [i] 0 0010 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+    page: 334,
   },
   ORR_REG_T1: {
     pattern: "010000 1100 [Rm:3] [Rdn:3]",
@@ -456,6 +485,7 @@ export const encodings: EncodingDefinition = {
   },
   PKHTB_T1: {
     pattern: "11101 01 0110 [S] [Rn:4] (0) [imm3] [Rd:4] [imm2] 1 [T:1] [Rm:4]",
+    page: 338,
   },
   PLD_IMM_T1: {
     pattern: "11111 00 0 1 0 0 1 [Rn:4] 1111 [imm12]",
@@ -465,9 +495,11 @@ export const encodings: EncodingDefinition = {
   },
   PLD_LIT_T1: {
     pattern: "11111 00 0 [U] 00 1 1111 1111 [imm12]",
+    page: 341,
   },
   PLD_REG_T1: {
     pattern: "11111 00 0 0 00 1 [Rn:4] 1111 0 00000 [imm2] [Rm:4]",
+    page: 342,
   },
   PLI_IMMLIT_T1: {
     pattern: "11111 00 1 1 00 1 [Rn:4] 1111 [imm12]",
@@ -504,37 +536,48 @@ export const encodings: EncodingDefinition = {
   },
   QADD16_T1: {
     pattern: "11111 010 1 001 [Rn:4] 1111 [Rd:4] 0 001 [Rm:4]",
+    page: 353,
   },
   QADD8_T1: {
     pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 0 001 [Rm:4]",
+    page: 354,
   },
   QASX_T1: {
     pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 0 001 [Rm:4]",
+    page: 355,
   },
   QDADD_T1: {
     pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 1 001 [Rm:4]",
+    page: 356,
   },
   QDSUB_T1: {
     pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 1 011 [Rm:4]",
+    page: 357,
   },
   QSAX_T1: {
     pattern: "11111 010 1 110 [Rn:4] 1111 [Rd:4] 0 001 [Rm:4]",
+    page: 358,
   },
   QSUB_T1: {
     pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 1 010 [Rm:4]",
+    page: 359,
   },
   QSUB16_T1: {
     pattern: "11111 010 1 101 [Rn:4] 1111 [Rd:4] 0 001 [Rm:4]",
+    page: 360,
   },
   QSUB8_T1: {
     pattern: "11111 010 1 100 [Rn:4] 1111 [Rd:4] 0 001 [Rm:4]",
+    page: 361,
   },
   RBIT_T1: {
     pattern: "11111 010 1 001 [Rm:4] 1111 [Rd:4] 1 010 [Rm:4]",
     duplicateVariables: Duplicate.MATCH,
+    page: 362,
   },
   REV_T1: {
     pattern: "1011 1010 00 [Rm:3] [Rd:3]",
+    page: 363,
   },
   REV_T2: {
     pattern: "11111 010 1 001 [Rm:4] 1111 [Rd:4] 1 000 [Rm:4]",
@@ -542,6 +585,7 @@ export const encodings: EncodingDefinition = {
   },
   REV16_T1: {
     pattern: "1011 1010 01 [Rm:3] [Rd:3]",
+    page: 364,
   },
   REV16_T2: {
     pattern: "11111 010 1 001 [Rm:4] 1111 [Rd:4] 1 001 [Rm:4]",
@@ -549,6 +593,7 @@ export const encodings: EncodingDefinition = {
   },
   REVSH_T1: {
     pattern: "1011 1010 11 [Rm:3] [Rd:3]",
+    page: 365,
   },
   REVSH_T2: {
     pattern: "11111 010 1 001 [Rm:4] 1111 [Rd:4] 1 011 [Rm:4]",
@@ -556,6 +601,7 @@ export const encodings: EncodingDefinition = {
   },
   ROR_IMM_T1: {
     pattern: "11101 01 0010 [S] 1111 (0) [imm3] [Rd:4] [imm2] 11 [Rm:4]",
+    page: 366,
   },
   ROR_REG_T1: {
     pattern: "010000 0111 [Rm:3] [Rdn:3]",
@@ -580,15 +626,19 @@ export const encodings: EncodingDefinition = {
   },
   SADD8_T1: {
     pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 0 000 [Rm:4]",
+    page: 377,
   },
   SASX_T1: {
     pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 0 000 [Rm:4]",
+    page: 378,
   },
   SBC_IMM_T1: {
     pattern: "11110 [i] 0 1011 [S] [Rn:4] 0 [imm3] [Rd:4] [imm8]",
+    page: 379,
   },
   SBC_REG_T1: {
     pattern: "010000 0110 [Rm:3] [Rdn:3]",
+    page: 380,
   },
   SBC_REG_T2: {
     pattern: "11101 01 1011 [S] [Rn:4] (0) [imm3] [Rd:4] [imm2] [type] [Rm:4]",
@@ -598,159 +648,210 @@ export const encodings: EncodingDefinition = {
   },
   SDIV_T1: {
     pattern: "11111 011100 1 [Rn:4] (1111) [Rd:4] 1111 [Rm:4]",
+    page: 383,
   },
   SEL_T1: {
     pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 1 000 [Rm:4]",
+    page: 384,
   },
   SEV_T1: {
     pattern: "1011 1111 0100 0000",
+    page: 385,
   },
   SEV_T2: {
     pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000100",
   },
   SHADD16_T1: {
     pattern: "11111 010 1 001 [Rn:4] 1111 [Rd:4] 0 010 [Rm:4]",
+    page: 386,
   },
   SHADD8_T1: {
     pattern: "11111 010 1 000 [Rn:4] 1111 [Rd:4] 0 010 [Rm:4]",
+    page: 387,
   },
   SHASX_T1: {
     pattern: "11111 010 1 010 [Rn:4] 1111 [Rd:4] 0 010 [Rm:4]",
+    page: 388,
   },
   SHSAX_T1: {
     pattern: "11111 010 1 110 [Rn:4] 1111 [Rd:4] 0 010 [Rm:4]",
+    page: 389,
   },
   SHSUB16_T1: {
     pattern: "11111 010 1 101 [Rn:4] 1111 [Rd:4] 0 010 [Rm:4]",
+    page: 390,
   },
   SHSUB8_T1: {
     pattern: "11111 010 1 100 [Rn:4] 1111 [Rd:4] 0 010 [Rm:4]",
+    page: 391,
   },
   SMLABB_T1: {
     pattern: "11111 0110 001 [Rn:4] [Ra:4] [Rd:4] 00 0 0 [Rm:4]",
+    page: 392,
   },
   SMLABT_T1: {
     pattern: "11111 0110 001 [Rn:4] [Ra:4] [Rd:4] 00 0 1 [Rm:4]",
+    page: 392,
   },
   SMLATB_T1: {
     pattern: "11111 0110 001 [Rn:4] [Ra:4] [Rd:4] 00 1 0 [Rm:4]",
+    page: 392,
   },
   SMLATT_T1: {
     pattern: "11111 0110 001 [Rn:4] [Ra:4] [Rd:4] 00 1 1 [Rm:4]",
+    page: 392,
   },
   SMLAD_T1: {
     pattern: "11111 0110 010 [Rn:4] [Ra:4] [Rd:4] 000 0 [Rm:4]",
+    page: 394,
   },
   SMLADX_T1: {
     pattern: "11111 0110 010 [Rn:4] [Ra:4] [Rd:4] 000 1 [Rm:4]",
+    page: 394,
   },
   SMLAL_T1: {
     pattern: "11111 0111 1 00 [Rn:4] [RdLo:4] [RdHi:4] 0000 [Rm:4]",
+    page: 396,
   },
   SMLALBB_T1: {
     pattern: "11111 0111 100 [Rn:4] [RdLo:4] [RdHi:4] 10 0 0 [Rm:4]",
+    page: 398,
   },
   SMLALBT_T1: {
     pattern: "11111 0111 100 [Rn:4] [RdLo:4] [RdHi:4] 10 0 1 [Rm:4]",
+    page: 398,
   },
   SMLALTB_T1: {
     pattern: "11111 0111 100 [Rn:4] [RdLo:4] [RdHi:4] 10 1 0 [Rm:4]",
+    page: 398,
   },
   SMLALTT_T1: {
     pattern: "11111 0111 100 [Rn:4] [RdLo:4] [RdHi:4] 10 1 1 [Rm:4]",
+    page: 398,
   },
   SMLALD_T1: {
     pattern: "11111 0111 100 [Rn:4] [RdLo:4] [RdHi:4] 110 0 [Rm:4]",
+    page: 400,
   },
   SMLALDX_T1: {
     pattern: "11111 0111 100 [Rn:4] [RdLo:4] [RdHi:4] 110 1 [Rm:4]",
+    page: 400,
   },
   SMLAWB_T1: {
     pattern: "11111 0110 011 [Rn:4] [Ra:4] [Rd:4] 000 0 [Rm:4]",
+    page: 402,
   },
   SMLAWT_T1: {
     pattern: "11111 0110 011 [Rn:4] [Ra:4] [Rd:4] 000 1 [Rm:4]",
+    page: 402,
   },
   SMLSD_T1: {
     pattern: "11111 0110 100 [Rn:4] [Ra:4] [Rd:4] 000 0 [Rm:4]",
+    page: 403,
   },
   SMLSDX_T1: {
     pattern: "11111 0110 100 [Rn:4] [Ra:4] [Rd:4] 000 1 [Rm:4]",
+    page: 403,
   },
   SMLSLD_T1: {
     pattern: "11111 0111 1 01 [Rn:4] [RdLo:4] [RdHi:4] 110 0 [Rm:4]",
+    page: 404,
   },
   SMLSLDX_T1: {
     pattern: "11111 0111 1 01 [Rn:4] [RdLo:4] [RdHi:4] 110 1 [Rm:4]",
+    page: 404,
   },
   SMMLA_T1: {
     pattern: "11111 0110 101 [Rn:4] [Ra:4] [Rd:4] 000 0 [Rm:4]",
+    page: 406,
   },
   SMMLAR_T1: {
     pattern: "11111 0110 101 [Rn:4] [Ra:4] [Rd:4] 000 1 [Rm:4]",
+    page: 406,
   },
   SMMLS_T1: {
     pattern: "11111 0110 110 [Rn:4] [Ra:4] [Rd:4] 000 0 [Rm:4]",
+    page: 407,
   },
   SMMLSR_T1: {
     pattern: "11111 0110 110 [Rn:4] [Ra:4] [Rd:4] 000 1 [Rm:4]",
+    page: 407,
   },
   SMMUL_T1: {
     pattern: "11111 0110 101 [Rn:4] 1111 [Rd:4] 000 0 [Rm:4]",
+    page: 408,
   },
   SMMULR_T1: {
     pattern: "11111 0110 101 [Rn:4] 1111 [Rd:4] 000 1 [Rm:4]",
+    page: 408,
   },
   SMUAD_T1: {
     pattern: "11111 0110 010 [Rn:4] 1111 [Rd:4] 000 0 [Rm:4]",
+    page: 409,
   },
   SMUADX_T1: {
     pattern: "11111 0110 010 [Rn:4] 1111 [Rd:4] 000 1 [Rm:4]",
+    page: 409,
   },
   SMULBB_T1: {
     pattern: "11111 0110 001 [Rn:4] 1111 [Rd:4] 00 0 0 [Rm:4]",
+    page: 410,
   },
   SMULBT_T1: {
     pattern: "11111 0110 001 [Rn:4] 1111 [Rd:4] 00 0 1 [Rm:4]",
+    page: 410,
   },
   SMULTB_T1: {
     pattern: "11111 0110 001 [Rn:4] 1111 [Rd:4] 00 1 0 [Rm:4]",
+    page: 410,
   },
   SMULTT_T1: {
     pattern: "11111 0110 001 [Rn:4] 1111 [Rd:4] 00 1 1 [Rm:4]",
+    page: 410,
   },
   SMULL_T1: {
     pattern: "11111 0111 0 00 [Rn:4] [RdLo:4] [RdHi:4] 0000 [Rm:4]",
+    page: 412,
   },
   SMULWB_T1: {
     pattern: "11111 0110 011 [Rn:4] 1111 [Rd:4] 000 0 [Rm:4]",
+    page: 413,
   },
   SMULWT_T1: {
     pattern: "11111 0110 011 [Rn:4] 1111 [Rd:4] 000 1 [Rm:4]",
+    page: 413,
   },
   SMUSD_T1: {
     pattern: "11111 0110 100 [Rn:4] 1111 [Rd:4] 000 0 [Rm:4]",
+    page: 414,
   },
   SMUSDX_T1: {
     pattern: "11111 0110 100 [Rn:4] 1111 [Rd:4] 000 1 [Rm:4]",
+    page: 414,
   },
   SSAT_T1: {
     pattern: "11110 (0) 11 00 [sh:1] 0 [Rn:4] 0 [imm3] [Rd:4] [imm2] (0) [sat_imm:5]",
+    page: 415,
   },
   SSAT16_T1: {
     pattern: "11110 (0) 11 001 0 [Rn:4] 0 000 [Rd:4] 00 (00) [sat_imm:4]",
+    page: 416,
   },
   SSAX_T1: {
     pattern: "11111 010 1 110 [Rn:4] 1111 [Rd:4] 0 000 [Rm:4]",
+    page: 417,
   },
   SSUB16_T1: {
     pattern: "11111 010 1 101 [Rn:4] 1111 [Rd:4] 0 000 [Rm:4]",
+    page: 418,
   },
   SSUB8_T1: {
     pattern: "11111 010 1 100 [Rn:4] 1111 [Rd:4] 0 000 [Rm:4]",
+    page: 419,
   },
   STC_T1: {
     pattern: "1110 110 [P] [U] [N] [W] 0 [Rn:4] [CRd:4] [coproc:4] [imm8]",
+    page: 420,
   },
   STC2_T2: {
     pattern: "1111 110 [P] [U] [N] [W] 0 [Rn:4] [CRd:4] [coproc:4] [imm8]",
@@ -808,9 +909,11 @@ export const encodings: EncodingDefinition = {
   },
   STREXB_T1: {
     pattern: "11101 000110 0 [Rn:4] [Rt:4] (1111) 0100 [Rd:4]",
+    page: 439,
   },
   STREXH_T1: {
     pattern: "11101 000110 0 [Rn:4] [Rt:4] (1111) 0101 [Rd:4]",
+    page: 440,
   },
   STRH_IMM_T1: {
     pattern: "1000 0 [imm5] [Rn:3] [Rt:3]",
@@ -832,9 +935,11 @@ export const encodings: EncodingDefinition = {
   },
   STRT_T1: {
     pattern: "11111 00 0 0 10 0 [Rn:4] [Rt:4] 1 110 [imm8]",
+    page: 447,
   },
   SUB_IMM_T1: {
     pattern: "000 11 1 1 [imm3] [Rn:3] [Rd:3]",
+    page: 448,
   },
   SUB_IMM_T2: {
     pattern: "001 11 [Rdn:3] [imm8]",
@@ -855,7 +960,7 @@ export const encodings: EncodingDefinition = {
     pattern: "1011 0000 1 [imm7]",
   },
   SUB_SMI_T2: {
-    pattern: "111110 [i] 1101 [S] 1101 0 [imm3] [Rd:4] [imm8]",
+    pattern: "11110 [i] 0 1101 [S] 1101 0 [imm3] [Rd:4] [imm8]",
   },
   SUB_SMI_T3: {
     pattern: "11110 [i] 1 0101 0 1101 0 [imm3] [Rd:4] [imm8]",
@@ -865,6 +970,7 @@ export const encodings: EncodingDefinition = {
   },
   SVC_T1: {
     pattern: "1101 1111 [imm8]",
+    pageSkip: 1,
   },
   SXTAB_T1: {
     pattern: "11111 010 0 100 [Rn:4] 1111 [Rd:4] 1 (0) [rotate:2] [Rm:4]",
@@ -895,6 +1001,7 @@ export const encodings: EncodingDefinition = {
   },
   TBH_T1: {
     pattern: "11101 00 0 1 1 0 1 [Rn:4] (1111) (0000) 000 1 [Rm:4]",
+    page: 462,
   },
   TEQ_IMM_T1: {
     pattern: "11110 [i] 0 0100 1 [Rn:4] 0 [imm3] 1111 [imm8]",
@@ -1025,6 +1132,8 @@ export const encodings: EncodingDefinition = {
   // TODO: Floating point
   WFE_T1: {
     pattern: "1011 1111 0010 0000",
+    page: 560,
+    pageSkip: 1,
   },
   WFE_T2: {
     pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000010",
@@ -1041,4 +1150,12 @@ export const encodings: EncodingDefinition = {
   YIELD_T2: {
     pattern: "11110 0 111 01 0 (1111) 10 (0) 0 (0) 000 00000001",
   },
+};
+
+// All encoding name parts are implicitly converted to keywords.
+// E.g., `ADD_REG_T2` -> "ADD", "REGISTER", "T2"
+export const keywords: KeywordMap = {
+  MATH: ["ADD", "SUB", "MUL", "DIV"],
+  DIV: ["SDIV", "UDIV"],
+  SIGNED: ["SDIV", "SMULL"], // etc.
 };

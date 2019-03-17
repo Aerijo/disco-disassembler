@@ -34,7 +34,7 @@ function idDataProc (hword: number): INSTRUCTION {
     I.AND_REG_T1, I.EOR_REG_T1, I.LSL_REG_T1, I.LSR_REG_T1,
     I.ASR_REG_T1, I.ADC_REG_T1, I.SBC_REG_T1, I.ROR_REG_T1,
     I.TST_REG_T1, I.RSB_IMM_T1, I.CMP_REG_T1, I.CMN_REG_T1,
-    I.ORR_REG_T1, I.MUL_REG_T1, I.BIC_REG_T1, I.MVN_REG_T1,
+    I.ORR_REG_T1, I.MUL_T1,     I.BIC_REG_T1, I.MVN_REG_T1,
   ]);
 }
 
@@ -100,8 +100,8 @@ function idIfThen (hword: number): INSTRUCTION {
 
 function idMisc (hword: number): INSTRUCTION {
   return resolveOpcode((hword >>> 5) & 0b1111111, hword, [
-    I.ADD_SP_IMM_T2, I.ADD_SP_IMM_T2, I.ADD_SP_IMM_T2, I.ADD_SP_IMM_T2, // 00000xx
-    I.SUB_SP_IMM_T1, I.SUB_SP_IMM_T1, I.SUB_SP_IMM_T1, I.SUB_SP_IMM_T1, // 00001xx
+    I.ADD_SPI_T2, I.ADD_SPI_T2, I.ADD_SPI_T2, I.ADD_SPI_T2, // 00000xx
+    I.SUB_SMI_T1, I.SUB_SMI_T1, I.SUB_SMI_T1, I.SUB_SMI_T1, // 00001xx
     I.CBZ_T1,  I.CBZ_T1,  I.CBZ_T1,  I.CBZ_T1, // 0001xxx
     I.CBZ_T1,  I.CBZ_T1,  I.CBZ_T1,  I.CBZ_T1,
     I.SXTH_T1, I.SXTH_T1, // 001000x
@@ -171,7 +171,7 @@ export function identifyNarrowInstruction (hword: number): INSTRUCTION {
 
     I.ADR_T1, I.ADR_T1, //10100x
 
-    I.ADD_SP_IMM_T1, I.ADD_SP_IMM_T1, // 10101x
+    I.ADD_SPI_T1, I.ADD_SPI_T1, // 10101x
 
     idMisc, idMisc, idMisc, idMisc, // 1011xx
 

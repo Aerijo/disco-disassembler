@@ -125,6 +125,7 @@ export function generateEncodingsFromObject (encodingDefinitions: EncodingDefini
 
     encodings.push(new Encoding({
       name,
+      rawName: key,
       pattern,
       encoding,
       type,

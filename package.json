@@ -2,7 +2,8 @@
   "name": "disco-disassembler",
   "version": "0.0.0",
   "description": "Disassembles snippets of machine code for the STM32L476 Discovery Kit",
-  "main": "dist/main",
+  "main": "./dist/main",
+  "types": "./types",
   "scripts": {
     "build": "tsc",
     "program": "tsc && node ./dist/src/main",
@@ -12,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "tslib": "^1.9.3",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "@types/node": "latest"
   }
 }

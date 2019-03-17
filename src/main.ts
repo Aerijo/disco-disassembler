@@ -1,11 +1,7 @@
-import * as stm from "../data/STM32L476";
-import { INSTRUCTION } from "./instructions/instructions";
-import { generateEncodingsFromObject } from "./instructions/generate";
+import { INSTRUCTION, instructionToEncoding } from "./instructions/instructions";
 import { identifyWideInstruction } from "./disassemble/wide";
 import { identifyNarrowInstruction } from "./disassemble/narrow";
-
-const stmEnc = generateEncodingsFromObject(stm.encodings);
-console.log(stmEnc.length);
+import { Encoding } from "./instructions/encodings";
 
 export function identifyInstruction (input: number): INSTRUCTION {
   if (input > (1 << 16)) {
@@ -15,8 +11,7 @@ export function identifyInstruction (input: number): INSTRUCTION {
   }
 }
 
-{
-  const f = identifyInstruction(parseInt("F1040501", 16));
-
-  console.log(INSTRUCTION[f]);
+export function bitsToEncoding (input: number): Encoding {
+  const instruction = identifyInstruction(input);
+  return instructionToEncoding(instruction);
 }

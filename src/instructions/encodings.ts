@@ -147,6 +147,7 @@ class BytePattern {
 
 interface EncodingParams {
   name: string;
+  rawName?: string;
   pattern: string;
   encoding: number;
   type: InstrType;
@@ -179,6 +180,9 @@ export class Encoding {
   /** The string pattern this encoding was created from */
   rawPattern: string;
 
+  /** The name this was defined with in the data */
+  rawName: string;
+
   /** The pattern expanded into an array of Bit's, which specifies what values / how precise it needs to be in each index */
   bits: Bit[];
 
@@ -187,6 +191,7 @@ export class Encoding {
 
   constructor (param: EncodingParams) {
     this.name = param.name;
+    this.rawName = param.rawName || param.name;
     this.rawPattern = param.pattern;
     this.encoding = param.encoding;
     this.type = param.type;

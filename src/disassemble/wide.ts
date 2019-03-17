@@ -3,31 +3,31 @@ const I = INSTRUCTION;
 
 function idCDP (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.CDP_T2
+    ? I.CDP2_T2
     : I.CDP_T1;
 }
 
 function idMCR (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.MCR_T2
+    ? I.MCR2_T2
     : I.MCR_T1;
 }
 
 function idMRC (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.MRC_T2
+    ? I.MRC2_T2
     : I.MRC_T1;
 }
 
 function idMRRC (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.MRRC_T2
+    ? I.MRRC2_T2
     : I.MRRC_T1;
 }
 
 function idMCRR (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.MCRR_T2
+    ? I.MCRR2_T2
     : I.MCRR_T1;
 }
 
@@ -35,19 +35,19 @@ function idLDC (word: number): INSTRUCTION {
   if (((word >>> 16) & 0b1111) === 0b1111) return idLDC_LIT(word);
 
   return ((word >>> 28) & 0b1)
-    ? I.LDC_IMM_T2
+    ? I.LDC2_IMM_T2
     : I.LDC_IMM_T1;
 }
 
 function idLDC_LIT (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.LDC_LIT_T2
+    ? I.LDC2_LIT_T2
     : I.LDC_LIT_T1;
 }
 
 function idSTC (word: number): INSTRUCTION {
   return ((word >>> 28) & 0b1)
-    ? I.STC_T2
+    ? I.STC2_T2
     : I.STC_T1;
 }
 
@@ -310,7 +310,7 @@ function idMultiplyDiff (word: number): INSTRUCTION {
     case 0b110: return X ? I.SMMLSR_T1 : I.SMMLS_T1;
     case 0b111:
       if (op2 !== 0b00) return I.UNDEFINED;
-      return RA_PC ? I.USADA8 : I.USAD8;
+      return RA_PC ? I.USADA8_T1 : I.USAD8_T1;
     default: return I.UNDEFINED;
   }
 }
@@ -539,14 +539,14 @@ function idLoadByte (word: number): INSTRUCTION {
         case 0b00:
         case 0b01: return I.PLD_LIT_T1;
         case 0b10:
-        case 0b11: return I.PLI_IMM_LIT_T3;
+        case 0b11: return I.PLI_IMMLIT_T3;
         default: return I.UNDEFINED;
       }
     }
 
     switch (op1) {
       case 0b01: return I.PLD_IMM_T1;
-      case 0b11: return I.PLI_IMM_LIT_T1;
+      case 0b11: return I.PLI_IMMLIT_T1;
       case 0b00:
         if (op2 === 0) return I.PLD_REG_T1;
         if ((op2 & 0b100100) === 0b100100) return I.UNPREDICTABLE;
@@ -556,7 +556,7 @@ function idLoadByte (word: number): INSTRUCTION {
       case 0b10:
         if (op2 === 0) return I.PLI_REG_T1;
         if ((op2 & 0b100100) === 0b100100) return I.UNPREDICTABLE;
-        if ((op2 & 0b111100) === 0b110000) return I.PLD_IMM_LIT_T2;
+        if ((op2 & 0b111100) === 0b110000) return I.PLI_IMMLIT_T2;
         if ((op2 & 0b111100) === 0b111000) return I.UNPREDICTABLE;
         return I.UNDEFINED;
       default: return I.UNDEFINED;
@@ -623,8 +623,8 @@ function idLongMultiplyDiff (word: number): INSTRUCTION {
         case 0b1001: return I.SMLALBT_T1;
         case 0b1010: return I.SMLALTB_T1;
         case 0b1011: return I.SMLALTT_T1;
-        case 0b1100: return I.SMALD_T1;
-        case 0b1101: return I.SMALDX_T1;
+        case 0b1100: return I.SMLALD_T1;
+        case 0b1101: return I.SMLALDX_T1;
         default: return I.UNDEFINED;
       }
     case 0b101: switch (op2) {

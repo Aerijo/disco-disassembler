@@ -1,4 +1,4 @@
-This project aims to be a tool to interpret machine code, as well as a general gloassary of commands that can be searched and filtered in numerous ways, e.g. by byte matches or keywords.
+This project aims to be a tool to interpret machine code, as well as a general glossary of commands that can be searched and filtered in numerous ways, e.g. by byte matches or keywords.
 
 The instruction interpreter likely has a few errors in it. Hopefully these will be found and removed with use.
 
@@ -13,7 +13,7 @@ One goal of this module is to support arbitrary encodings (that at least somewha
 
 Note that the final step iterates the array in order. At least for the ARM instructions I am using, arranging the encodings by most to least specific is sufficient to accurately determine which instruction it is.
 
-There is one instruction that somewhat complicates this though: `ADD` has three conflicting variations with no clear "more specific" version.
+However, some instructions conflict in complicated ways. E.g.,
 ```
 ADD_REG_T2: 01000100 [DN:1] [Rm:4] [Rdn:3]
 ADD_SPR_T1: 01000100 [DM:1] 1101   [Rdm:3]

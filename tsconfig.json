@@ -2,7 +2,6 @@
   "compilerOptions": {
     "strict": true,
     "declaration": true,
-    "declarationDir": "./types",
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "lib": ["es2017", "dom"],
@@ -17,5 +16,10 @@
     "sourceMap": true,
     "target": "es2017"
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "include": [
+    "typings/**/*.ts",
+    "src/**/*.ts",
+    "spec/**/*.ts"
+  ]
 }

@@ -363,11 +363,11 @@ const I = INSTRUCTION;
 const orderedEncodings: Encoding[] = generateEncodingsFromObject(stm.encodings);
 const numEncodings = orderedEncodings.length;
 
-const todoEncoding = new Encoding({name: "TODO", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0 });
-const invalidEncoding = new Encoding({name: "INVALID", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0 });
-const unallocatedEncoding = new Encoding({name: "UNALLOCATED", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0 });
-const unpredictableEncoding = new Encoding({name: "UNPREDICTABLE", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0 });
-const undefinedEncoding = new Encoding({name: "UNDEFINED", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0 });
+const todoEncoding = new Encoding({name: "TODO", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0, invalid: true });
+const invalidEncoding = new Encoding({name: "INVALID", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0, invalid: true });
+const unallocatedEncoding = new Encoding({name: "UNALLOCATED", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0, invalid: true });
+const unpredictableEncoding = new Encoding({name: "UNPREDICTABLE", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0, invalid: true });
+const undefinedEncoding = new Encoding({name: "UNDEFINED", pattern: "0000 0000 0000 0000", encoding: 0, type: InstrType.NONE, page: 0, invalid: true });
 
 export function instructionToEncoding (instruction: INSTRUCTION): Encoding {
   if (instruction >= numEncodings) {

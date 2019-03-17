@@ -2,12 +2,15 @@
   "name": "disco-disassembler",
   "version": "0.0.0",
   "description": "Disassembles snippets of machine code for the STM32L476 Discovery Kit",
-  "main": "./dist/main",
-  "types": "./types",
+  "main": "./dist/src/main",
+  "types": "./dist/src/main.d.ts",
   "scripts": {
-    "build": "tsc",
-    "program": "tsc && node ./dist/src/main",
-    "test": "tsc && node ./spec/main"
+    "clean": "rm -rf dist",
+    "compile": "tsc",
+    "program": "tsc -watch",
+    "lint": "tslint -c tslint.json 'lib/**/*.ts' 'spec/**/*.ts' 'typings/**/*.d.ts'",
+    "prepare": "npm run clean && npm run compile",
+    "test": "npm run compile && npm run lint && node ./dist/spec/ordering"
   },
   "author": "Benjamin Gray",
   "license": "MIT",

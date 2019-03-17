@@ -35,7 +35,7 @@ function typeFromShorthand (val: string): InstrType {
   }
 }
 
-export function instrTypeToDisplayName (type :InstrType, {addParens=true, short=true}): string {
+export function instrTypeToDisplayName (type: InstrType, {addParens=true, short=true}): string {
   let name: string = "";
   switch (type) {
     case InstrType.NONE: name = ""; break;
@@ -49,7 +49,7 @@ export function instrTypeToDisplayName (type :InstrType, {addParens=true, short=
     case InstrType.IMMEDIATE_LITERAL: name = short ? "iml" : "immediate, literal"; break;
     default: name = "MISSING";
   }
-  if (addParens) {
+  if (addParens && name.length > 0) {
     name = `(${name})`;
   }
   return name;

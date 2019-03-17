@@ -1,4 +1,4 @@
-import { Duplicate } from "./generate";
+import { Duplicate, instrTypeToDisplayName } from "./generate";
 
 enum Bit {
   ZERO = 0,
@@ -72,8 +72,8 @@ class BytePattern {
   static constructVariables (preVariables: PreVariable[], instructionWidth: number): Variable[] {
     return preVariables.map(v => {
       const varWidth = v.range[1] - v.range[0];
-      const shift = instructionWidth - v.range[0];
-      const mask = ((2 ** varWidth) - 1) << shift;
+      const shift = instructionWidth - v.range[1];
+      const mask = (2 ** varWidth) - 1;
 
       return { name: v.name, range: v.range, mask, shift };
     });
@@ -153,6 +153,7 @@ interface EncodingParams {
   type: InstrType;
   duplicateVars?: Duplicate;
   page: number;
+  invalid?: boolean;
 }
 
 export class Encoding {
@@ -189,6 +190,9 @@ export class Encoding {
   /** The page in the manual (section A7) where this instruction is specified */
   page: number;
 
+  /** If this encoding is not of an actual instruction (e.g., word was invalid, todo, etc.) */
+  invalid?: boolean;
+
   constructor (param: EncodingParams) {
     this.name = param.name;
     this.rawName = param.rawName || param.name;
@@ -196,6 +200,10 @@ export class Encoding {
     this.encoding = param.encoding;
     this.type = param.type;
     this.page = param.page;
+
+    if (param.invalid) {
+      this.invalid = true;
+    }
 
     const { bits, variables } = BytePattern.parseTemplate(param.pattern, param.duplicateVars || Duplicate.NONE);
     this.bits = bits;
@@ -225,6 +233,18 @@ export class Encoding {
         default: return "x";
       }
     }).join("");
+  }
+
+  getDisplayName (): string {
+    const instrName = this.name;
+    const type = instrTypeToDisplayName(this.type, {addParens: true, short: false});
+    const encoding = `T${this.encoding}`;
+
+    if (type.length > 0) {
+      return `${instrName} ${type} ${encoding}`;
+    } else {
+      return `${instrName} ${encoding}`;
+    }
   }
 
   /**

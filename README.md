@@ -1,4 +1,4 @@
-This project aims to be a tool to interpret machine code, as well as a general glossary of commands that can be searched and filtered in numerous ways, e.g. by byte matches or keywords.
+This project is for the STM32L476 discovery board (discoboard). It aims to be a tool to interpret machine code, as well as a general glossary of commands that can be searched and filtered in numerous ways, e.g. by byte matches or keywords.
 
 The instruction interpreter likely has a few errors in it. Hopefully these will be found and removed with use.
 
@@ -19,4 +19,4 @@ ADD_REG_T2: 01000100 [DN:1] [Rm:4] [Rdn:3]
 ADD_SPR_T1: 01000100 [DM:1] 1101   [Rdm:3]
 ADD_SPR_T2: 01000100 1      [Rm:4] 101
 ```
-For `ADD_SPR_T2`, though it looks more specific with only one variable, a value of `1101` makes it `T1` instead. The `T1` encoding itself is unconditional; matching the set bits guarantees a complete match (if neither match then `ADD_REG_T2` is used).
+For `ADD_SPR_T2`, though it looks more specific with only one variable, a value of `1101` makes it `T1` instead. The `T1` encoding itself is unconditional; matching the set bits guarantees a complete match (if neither match then `ADD_REG_T2` is used). This feature will be on hold until all conflicts can be resolved with a natural way to specify how.

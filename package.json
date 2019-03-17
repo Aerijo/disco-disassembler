@@ -2,6 +2,13 @@
   "name": "disco-disassembler",
   "version": "0.0.0",
   "description": "Disassembles snippets of machine code for the STM32L476 Discovery Kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aerijo/disco-disassembler"
+  },
+  "bugs": {
+    "urls": "https://github.com/Aerijo/disco-disassembler/issues"
+  },
   "main": "./dist/src/main",
   "types": "./dist/src/main.d.ts",
   "scripts": {

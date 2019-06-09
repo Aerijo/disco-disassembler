@@ -1,6 +1,6 @@
 import { Duplicate, instrTypeToDisplayName } from "./generate";
 
-enum Bit {
+export enum Bit {
   ZERO = 0,
   ONE = 1,
   SHOULD_ZERO,

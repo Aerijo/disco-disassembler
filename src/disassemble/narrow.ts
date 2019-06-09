@@ -147,7 +147,7 @@ function idCondBranch (hword: number): INSTRUCTION {
     case 0b1111:
       return I.SVC_T1;
     default:
-      return I.B_T2;
+      return I.B_T1;
   }
 }
 
